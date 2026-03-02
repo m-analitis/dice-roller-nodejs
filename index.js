@@ -52,6 +52,20 @@ app.get('/add-two-integers', (request, response) => {
 	response.send(sum.toString())
 })
 
+// Roll n six-sided dice, n is passed in the URL.
+app.get('/roll', (request, response) => {
+	console.log('Calling "/roll" on the Node.js server.')
+	var inputs = url.parse(request.url, true).query
+	let numDice = parseInt(inputs.num)
+	let rolls = []
+	for (let i = 0; i < numDice; i++) {
+        let rand = Math.floor(Math.random()*6) + 1
+		rolls[i] = rand
+    }
+	response.type('application/json')
+	response.send(JSON.stringify(rolls))
+})
+
 // Template for calculating BMI using height in feet/inches and weight in pounds.
 app.get('/calculate-bmi', (request, response) => {
 	console.log('Calling "/calculate-bmi" on the Node.js server.')
